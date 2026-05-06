@@ -35,52 +35,5 @@ export const students: Student[] = [
     photo: "/images/students/dmas.jpg",
     message: "Jangan pernah lupakan kenangan kita di lab TKJ, kawan!",
   },
-  {
-    id: 3,
-    name: "M.Farid Setiawan",
-    photo: "/images/students/farid.jpg",
-    message: "-",
-  },
-  {
-    id: 4,
-    name: "Ilham Fahturohman",
-    photo: "/images/students/ilham.jpg",
-    message: "-",
-  },
-  {
-    id: 5,
-    name: "-",
-    photo: "/images/students/dmass.jpg",
-    message: "-",
-  },
-  {
-    id: 6,
-    name: "-",
-    photo: "/images/students/dmass.jpg",
-    message: "-",
-  },
-  {
-    id: 7,
-    name: "-",
-    photo: "/images/students/dmass.jpg",
-    message: "-",
-  },
-  {
-    id: 8,
-    name: "-",
-    photo: "/images/students/dmass.jpg",
-    message: "-",
-  },
-  {
-    id: 9,
-    name: "-",
-    photo: "/images/students/dmass.jpg",
-    message: "-",
-  },
-  {
-    id: 10,
-    name: "-",
-    photo: "/images/students/dmass.jpg",
-    message: "-",
   },
 ];

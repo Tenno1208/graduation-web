@@ -91,17 +91,17 @@ export default function GraduationPage() {
           <SquadSection students={students} teacher={waliKelas} />
           <ClosingSection />
           {/* Ganti bagian tombol lama dengan ini */}
-          <div className="bg-black py-10 flex justify-center">
-            <button 
-              onClick={() => setIsVaultOpen(true)}
-              className="group flex flex-col items-center gap-2"
-            >
-              <span className="text-[7px] tracking-[0.5em] text-zinc-800 group-hover:text-yellow-500/40 uppercase transition-all">
-                ✦ Area Terlarang
-              </span>
-              <div className="w-1 h-1 rounded-full bg-zinc-900 group-hover:bg-yellow-500/20 transition-all" />
-            </button>
-          </div>
+<div className="bg-black py-10 flex justify-center">
+  <button 
+    onClick={() => setIsVaultOpen(true)}
+    className="group flex flex-col items-center gap-2"
+  >
+    <span className="text-[7px] tracking-[0.5em] text-zinc-800 group-hover:text-yellow-500/40 uppercase transition-all">
+      ✦ Area Terlarang
+    </span>
+    <div className="w-1 h-1 rounded-full bg-zinc-900 group-hover:bg-yellow-500/20 transition-all" />
+  </button>
+</div>
           <Footer />
           <SecretVault 
             isOpen={isVaultOpen} 
