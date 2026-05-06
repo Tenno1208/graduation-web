@@ -276,7 +276,7 @@ export default function HeroSection({ index, quote, audioRef, setIsPlaying }: He
           {!videoFinishedPermanently && (
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: [0, 0.6, 0.3, 0.6] }} transition={{ repeat: Infinity, duration: 3 }} className="mt-4 flex items-center gap-2">
               <div className="h-px w-4 bg-yellow-500/30" />
-              <span className="text-[7px] text-yellow-500/60 tracking-[0.4em] uppercase font-black">Spesial Moment Menanti</span>
+              <span className="text-[7px] text-yellow-500/60 tracking-[0.4em] uppercase font-black">Spesial Momment Menanti</span>
               <div className="h-px w-4 bg-yellow-500/30" />
             </motion.div>
           )}
