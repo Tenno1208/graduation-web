@@ -30,7 +30,6 @@ export default function GraduationPage() {
   const [index, setIndex] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
   const [hasStarted, setHasStarted] = useState(false);
-  const [isVaultOpen, setIsVaultOpen] = useState(false);
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
   useEffect(() => {
@@ -90,19 +89,7 @@ export default function GraduationPage() {
 
           <SquadSection students={students} teacher={waliKelas} />
           <ClosingSection />
-          <div className="bg-black py-10 flex justify-center">
-             <button 
-               onClick={() => setIsVaultOpen(true)}
-               className="text-[7px] tracking-[0.5em] text-zinc-800 hover:text-yellow-500/20 uppercase transition-colors"
-             >
-               ✦ Restricted Area
-             </button>
-          </div>
           <Footer />
-          <SecretVault 
-            isOpen={isVaultOpen} 
-            onClose={() => setIsVaultOpen(false)} 
-          />
         </motion.div>
       )}
     </main>

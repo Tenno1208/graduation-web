@@ -7,7 +7,6 @@ import MusicPlayer from "@/components/MusicPlayer";
 import HeroSection from "@/components/HeroSection";
 import SquadSection from "@/components/SquadSection";
 import ClosingSection from "@/components/ClosingSection";
-import SecretVault from "@/components/SecretVault";
 import Footer from "@/components/Footer";
 
 const graduationQuotes = [
@@ -30,7 +29,6 @@ export default function GraduationPage() {
   const [index, setIndex] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
   const [hasStarted, setHasStarted] = useState(false);
-  const [isVaultOpen, setIsVaultOpen] = useState(false);
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
   useEffect(() => {
@@ -88,21 +86,9 @@ export default function GraduationPage() {
             setIsPlaying={setIsPlaying}
           />
 
-          <SquadSection students={students} teacher={waliKelas} />
+          <SquadSection students={students} />
           <ClosingSection />
-          <div className="bg-black py-10 flex justify-center">
-             <button 
-               onClick={() => setIsVaultOpen(true)}
-               className="text-[7px] tracking-[0.5em] text-zinc-800 hover:text-yellow-500/20 uppercase transition-colors"
-             >
-               ✦ Restricted Area
-             </button>
-          </div>
           <Footer />
-          <SecretVault 
-            isOpen={isVaultOpen} 
-            onClose={() => setIsVaultOpen(false)} 
-          />
         </motion.div>
       )}
     </main>

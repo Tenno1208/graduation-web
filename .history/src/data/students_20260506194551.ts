@@ -15,7 +15,7 @@ export interface Teacher {
 }
 
 export const waliKelas: Teacher = {
-  name: "Ibu Siti Rohmah, S.Kom", // Contoh Nama
+  name: "Ibu Siti Rohmah, S.Ko", // Contoh Nama
   photo: "/images/walikelas.jpg",
   subject: "Guru Produktif TKJ",
   message:
@@ -29,10 +29,5 @@ export const students: Student[] = [
     photo: "/images/students/tenno.jpg",
     message: "Jangan pernah lupakan kenangan kita di lab TKJ, kawan!",
   },
-  {
-    id: 2,
-    name: "Dimas Saputra",
-    photo: "/images/students/dmas.jpg",
-    message: "Jangan pernah lupakan kenangan kita di lab TKJ, kawan!",
-  },
+  // ... data lainnya
 ];

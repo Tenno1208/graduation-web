@@ -30,9 +30,9 @@ export const students: Student[] = [
     message: "Jangan pernah lupakan kenangan kita di lab TKJ, kawan!",
   },
   {
-    id: 2,
-    name: "Dimas Saputra",
-    photo: "/images/students/dmas.jpg",
+    id: 1,
+    name: "M.Tenno Haika Avvatar",
+    photo: "/images/students/tenno.jpg",
     message: "Jangan pernah lupakan kenangan kita di lab TKJ, kawan!",
   },
 ];

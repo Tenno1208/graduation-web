@@ -99,10 +99,6 @@ export default function GraduationPage() {
              </button>
           </div>
           <Footer />
-          <SecretVault 
-            isOpen={isVaultOpen} 
-            onClose={() => setIsVaultOpen(false)} 
-          />
         </motion.div>
       )}
     </main>
