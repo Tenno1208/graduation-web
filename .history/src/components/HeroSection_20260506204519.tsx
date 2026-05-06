@@ -180,28 +180,23 @@ export default function HeroSection({ index, quote, audioRef, setIsPlaying }: He
 
   return (
     <section className="relative min-h-[100svh] w-full bg-black overflow-hidden flex flex-col">
-      {/* Background Texture & Glow tetap sama */}
+      {/* Background Texture */}
       <div className="pointer-events-none absolute inset-0 z-30 opacity-[0.035] bg-[url('https://www.transparenttextures.com/patterns/stardust.png')]" />
+      
+      {/* Ambient Glow */}
       <motion.div key={`glow-${index}`} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 2 }} className="pointer-events-none absolute inset-0 z-0" style={{ background: "radial-gradient(ellipse 70% 50% at 50% 60%, rgba(161,123,67,0.18) 0%, transparent 70%)" }} />
 
-      {/* ─── ENHANCED HEADER WITH LOGO ─── */}
+      {/* ─── ENHANCED HEADER ─── */}
       <motion.header 
         initial={{ opacity: 0, y: -25 }} 
         animate={{ opacity: isLoaded ? 1 : 0, y: isLoaded ? 0 : -25 }} 
         transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
         className="relative z-40 flex items-center justify-between px-6 pt-12 pb-4"
       >
-        {/* Left Side: Logo & Batch Info */}
-        <div className="group flex items-center gap-3 bg-white/[0.03] border border-white/10 backdrop-blur-md rounded-full pl-1.5 pr-4 py-1.5 transition-all hover:bg-white/[0.06] hover:border-white/20">
-          {/* Container Logo Kelas */}
-          <div className="relative flex h-8 w-8 items-center justify-center rounded-full bg-zinc-900 overflow-hidden border border-white/10 shadow-[0_0_15px_rgba(255,255,255,0.1)]">
-            <Image 
-              src="/images/logo-kelas.png" // Ganti dengan path logo kamu
-              alt="Logo Kelas"
-              width={24}
-              height={24}
-              className="object-contain"
-            />
+        {/* Left Side: Batch Info */}
+        <div className="group flex items-center gap-3 bg-white/[0.03] border border-white/10 backdrop-blur-md rounded-full pl-2 pr-4 py-1.5 transition-all hover:bg-white/[0.06] hover:border-white/20">
+          <div className="flex h-7 w-7 items-center justify-center rounded-full bg-yellow-400 shadow-[0_0_15px_rgba(250,204,21,0.4)]">
+            <Sparkles size={14} className="text-black" />
           </div>
           <div className="flex flex-col">
             <span className="text-[7px] leading-none tracking-[0.2em] uppercase font-black text-yellow-400/80 mb-0.5">Official Batch</span>
@@ -209,7 +204,7 @@ export default function HeroSection({ index, quote, audioRef, setIsPlaying }: He
           </div>
         </div>
 
-        {/* Right Side: Major Info tetap sama */}
+        {/* Right Side: Major Info */}
         <div className="flex items-center gap-4">
           <div className="h-8 w-[1px] bg-gradient-to-b from-transparent via-white/20 to-transparent" />
           <div className="flex flex-col items-end">
