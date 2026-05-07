@@ -92,40 +92,46 @@ export default function GraduationPage() {
           <SquadSection students={students} teacher={waliKelas} />
           <FutureLetter />
           <ClosingSection />
-          <div className="relative bg-black py-20 flex justify-center">
-            <motion.button
-              initial={{ opacity: 0.4 }}
-              whileHover={{ opacity: 1, scale: 1.05 }}
-              onClick={() => setIsVaultOpen(true)}
-              className="group relative flex flex-col items-center gap-3 transition-all duration-500"
-            >
-              {/* Ikon Gembok Kecil */}
-              <div className="p-3 rounded-2xl bg-white/5 border border-white/10 group-hover:border-yellow-500/50 group-hover:bg-yellow-500/5 transition-all duration-500">
-                <svg 
-                  width="18" height="18" viewBox="0 0 24 24" fill="none" 
-                  stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" 
-                  className="text-zinc-500 group-hover:text-yellow-500 transition-colors"
-                >
-                  <rect width="18" height="11" x="3" y="11" rx="2" ry="2" />
-                  <path d="M7 11V7a5 5 0 0 1 10 0v4" />
-                </svg>
-              </div>
+          {/* Ganti bagian tombol lama dengan ini */}
+          {/* SECRET EASTER EGG */}
+<div className="relative bg-black py-24 flex justify-center overflow-hidden">
+  
+  {/* hidden trigger */}
+  <motion.button
+    initial={{ opacity: 0.03 }}
+    whileHover={{ opacity: 0.15 }}
+    transition={{ duration: 0.4 }}
+    onClick={() => setIsVaultOpen(true)}
+    className="
+      group relative
+      text-zinc-800 hover:text-yellow-500/40
+      transition-all duration-700
+      select-none
+    "
+  >
+    {/* tiny line */}
+    <div className="flex items-center gap-3">
+      <div className="w-6 h-px bg-zinc-900 group-hover:bg-yellow-500/20 transition-all duration-500" />
 
-              {/* Teks Label */}
-              <div className="flex items-center gap-4">
-                <div className="w-8 h-px bg-zinc-800 group-hover:bg-yellow-500/30 transition-all" />
-                <span className="text-[9px] tracking-[0.4em] uppercase font-black text-zinc-500 group-hover:text-yellow-500 transition-colors">
-                  Arsip Rahasia
-                </span>
-                <div className="w-8 h-px bg-zinc-800 group-hover:bg-yellow-500/30 transition-all" />
-              </div>
+      <span className="text-[6px] tracking-[0.5em] uppercase font-black">
+        archive
+      </span>
 
-              {/* Tooltip Keterangan */}
-              <p className="text-[8px] italic text-zinc-600 opacity-0 group-hover:opacity-100 transition-opacity duration-500 tracking-wider">
-                Khusus warga XII TKJ 2
-              </p>
-            </motion.button>
-          </div>
+      <div className="w-6 h-px bg-zinc-900 group-hover:bg-yellow-500/20 transition-all duration-500" />
+    </div>
+
+    {/* floating tooltip */}
+    <motion.div
+      initial={{ opacity: 0, y: 6 }}
+      whileHover={{ opacity: 1, y: 0 }}
+      className="absolute top-full left-1/2 -translate-x-1/2 mt-3 whitespace-nowrap"
+    >
+      <p className="text-[8px] italic text-zinc-700">
+        beberapa kenangan memang disembunyikan.
+      </p>
+    </motion.div>
+  </motion.button>
+</div>
           <Footer />
           <SecretVault 
             isOpen={isVaultOpen} 

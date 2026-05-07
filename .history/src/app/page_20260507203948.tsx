@@ -92,6 +92,9 @@ export default function GraduationPage() {
           <SquadSection students={students} teacher={waliKelas} />
           <FutureLetter />
           <ClosingSection />
+          {/* Ganti bagian tombol lama dengan ini */}
+          {/* SECRET EASTER EGG */}
+{/* ─── TOMBOL ARSIP RAHASIA (Gudang Aib) ─── */}
           <div className="relative bg-black py-20 flex justify-center">
             <motion.button
               initial={{ opacity: 0.4 }}

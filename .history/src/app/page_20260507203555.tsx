@@ -81,7 +81,6 @@ export default function GraduationPage() {
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1.5 }}>
           <MusicPlayer isPlaying={isPlaying} toggleMusic={toggleMusic} />
 
-          {/* ↓ audioRef dikirim ke HeroSection biar bisa pause/resume saat video */}
           <HeroSection
             index={index}
             quote={graduationQuotes[index % graduationQuotes.length]}
@@ -92,41 +91,59 @@ export default function GraduationPage() {
           <SquadSection students={students} teacher={waliKelas} />
           <FutureLetter />
           <ClosingSection />
-          <div className="relative bg-black py-20 flex justify-center">
-            <motion.button
-              initial={{ opacity: 0.4 }}
-              whileHover={{ opacity: 1, scale: 1.05 }}
-              onClick={() => setIsVaultOpen(true)}
-              className="group relative flex flex-col items-center gap-3 transition-all duration-500"
-            >
-              {/* Ikon Gembok Kecil */}
-              <div className="p-3 rounded-2xl bg-white/5 border border-white/10 group-hover:border-yellow-500/50 group-hover:bg-yellow-500/5 transition-all duration-500">
-                <svg 
-                  width="18" height="18" viewBox="0 0 24 24" fill="none" 
-                  stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" 
-                  className="text-zinc-500 group-hover:text-yellow-500 transition-colors"
-                >
-                  <rect width="18" height="11" x="3" y="11" rx="2" ry="2" />
-                  <path d="M7 11V7a5 5 0 0 1 10 0v4" />
-                </svg>
-              </div>
 
-              {/* Teks Label */}
+          {/* ─── SECRET EASTER EGG SECTION ─── */}
+          <div className="relative bg-black py-24 flex flex-col items-center justify-center overflow-hidden">
+            
+            {/* Ambient pulse background (Sangat redup) */}
+            <motion.div 
+              animate={{ opacity: [0, 0.05, 0] }}
+              transition={{ repeat: Infinity, duration: 4 }}
+              className="absolute w-64 h-64 bg-yellow-500/10 blur-[100px] rounded-full pointer-events-none"
+            />
+
+            <motion.button
+              initial={{ opacity: 0.02 }}
+              whileHover={{ opacity: 1, scale: 1.05 }}
+              animate={{ opacity: [0.02, 0.08, 0.02] }}
+              transition={{ 
+                opacity: { repeat: Infinity, duration: 5, ease: "easeInOut" },
+                scale: { duration: 0.4 }
+              }}
+              onClick={() => setIsVaultOpen(true)}
+              className="group relative flex flex-col items-center select-none"
+            >
+              {/* Kilatan Cahaya Kecil (Glimmer) */}
+              <motion.div 
+                animate={{ 
+                  left: ["-100%", "200%"],
+                  opacity: [0, 1, 0]
+                }}
+                transition={{ repeat: Infinity, duration: 3, delay: 2 }}
+                className="absolute top-0 w-8 h-[1px] bg-gradient-to-r from-transparent via-yellow-500/40 to-transparent"
+              />
+
               <div className="flex items-center gap-4">
-                <div className="w-8 h-px bg-zinc-800 group-hover:bg-yellow-500/30 transition-all" />
-                <span className="text-[9px] tracking-[0.4em] uppercase font-black text-zinc-500 group-hover:text-yellow-500 transition-colors">
+                <div className="w-8 h-px bg-zinc-900 group-hover:bg-yellow-500/40 transition-all duration-700" />
+                
+                <span className="text-[7px] tracking-[0.8em] uppercase font-black text-zinc-800 group-hover:text-yellow-500/60 transition-colors duration-700">
                   Arsip Rahasia
                 </span>
-                <div className="w-8 h-px bg-zinc-800 group-hover:bg-yellow-500/30 transition-all" />
+
+                <div className="w-8 h-px bg-zinc-900 group-hover:bg-yellow-500/40 transition-all duration-700" />
               </div>
 
-              {/* Tooltip Keterangan */}
-              <p className="text-[8px] italic text-zinc-600 opacity-0 group-hover:opacity-100 transition-opacity duration-500 tracking-wider">
-                Khusus warga XII TKJ 2
-              </p>
+              {/* Teks Muncul Saat Hover */}
+              <div className="overflow-hidden h-0 group-hover:h-6 transition-all duration-500">
+                <p className="mt-3 text-[8px] italic text-zinc-600 tracking-widest uppercase">
+                  pintu masuk warga kelas.
+                </p>
+              </div>
             </motion.button>
           </div>
+
           <Footer />
+          
           <SecretVault 
             isOpen={isVaultOpen} 
             onClose={() => setIsVaultOpen(false)} 
