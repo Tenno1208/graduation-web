@@ -15,9 +15,9 @@ export interface Teacher {
 }
 
 export const waliKelas: Teacher = {
-  name: "Bapak Izmu Sabih, S.", 
+  name: "Bapak Izmu Sabih, S.Kom", 
   photo: "/images/walikelas.jpg",
-  subject: "Wali Kelas XII TKJ 2",
+  subject: "Guru Produktif TKJ",
   message:
     "Kalian adalah murid-murid terbaik yang pernah saya ajar. Teruslah berjuang, jangan berhenti bermimpi. Saya bangga menjadi bagian dari perjalanan kalian.",
 };

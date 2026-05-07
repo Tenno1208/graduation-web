@@ -15,9 +15,9 @@ export interface Teacher {
 }
 
 export const waliKelas: Teacher = {
-  name: "Bapak Izmu Sabih, S.", 
+  name: "Ibu Siti Rohmah, S.Kom", 
   photo: "/images/walikelas.jpg",
-  subject: "Wali Kelas XII TKJ 2",
+  subject: "Guru Produktif TKJ",
   message:
     "Kalian adalah murid-murid terbaik yang pernah saya ajar. Teruslah berjuang, jangan berhenti bermimpi. Saya bangga menjadi bagian dari perjalanan kalian.",
 };
@@ -37,32 +37,32 @@ export const students: Student[] = [
   },
   {
     id: 3,
-    name: "MuhamadFarid Setiawan",
+    name: "M.Farid Setiawan",
     photo: "/images/students/farid.jpg",
     message: "-",
   },
   {
     id: 4,
     name: "Ilham Fahturohman",
-    photo: "/images/students/ilham.jpg",
+    photo: "/images/students/reva.jpg",
     message: "-",
   },
   {
     id: 5,
-    name: "Muhammad Maisur Sindy",
+    name: "-",
     photo: "/images/students/sindy.jpg",
     message: "-",
   },
   {
     id: 6,
-    name: "Much Rizki Aditia",
+    name: "Much Rizky Adita",
     photo: "/images/students/adit.jpg",
     message: "-",
   },
   {
     id: 7,
-    name: "Reva Aditiya Rizky",
-    photo: "/images/students/reva.jpg",
+    name: "-",
+    photo: "/images/students/dmass.jpg",
     message: "-",
   },
   {

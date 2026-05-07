@@ -19,6 +19,7 @@ interface SquadProps {
   };
 }
 
+// ─── Teacher Card ─────────────────────────────────────────────────────────────
 function TeacherCard({
   teacher,
 }: {
@@ -28,114 +29,124 @@ function TeacherCard({
     <motion.div
       initial={{ opacity: 0, y: 32 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 1 }}
-      className="relative mb-24"
+      viewport={{ once: true, margin: "-60px" }}
+      transition={{ duration: 0.9, ease: [0.25, 0.1, 0.25, 1] }}
+      className="relative mb-20"
     >
-      {/* vertical connector */}
-      <div className="absolute left-1/2 top-full -translate-x-1/2 w-px h-20 bg-gradient-to-b from-yellow-500/40 to-transparent" />
+      {/* connector line */}
+      <div className="absolute left-1/2 top-full -translate-x-1/2 w-px h-14 bg-gradient-to-b from-yellow-500/30 to-transparent" />
 
-      {/* orbit glow */}
-      <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-        <div className="w-[260px] h-[260px] rounded-full border border-yellow-500/10" />
-        <div className="absolute w-[320px] h-[320px] rounded-full border border-white/[0.03]" />
-      </div>
-
-      {/* top label */}
-      <div className="flex justify-center mb-6">
-        <div className="px-4 py-1.5 rounded-full border border-yellow-500/20 bg-yellow-500/5 flex items-center gap-2">
-          <GraduationCap size={11} className="text-yellow-500" />
-
-          <span className="text-[8px] uppercase tracking-[0.35em] font-black text-yellow-500/80">
+      {/* Section label */}
+      <div className="flex items-center gap-3 mb-6 justify-center">
+        <div className="h-px flex-1 bg-gradient-to-r from-transparent to-yellow-500/20" />
+        <div className="flex items-center gap-2 px-3 py-1 bg-yellow-500/8 border border-yellow-500/15 rounded-full">
+          <GraduationCap size={10} className="text-yellow-500" />
+          <span className="text-[8px] tracking-[0.35em] uppercase font-black text-yellow-500/80">
             Wali Kelas
           </span>
         </div>
+        <div className="h-px flex-1 bg-gradient-to-l from-transparent to-yellow-500/20" />
       </div>
 
-      {/* main */}
-      <div className="relative flex flex-col items-center text-center">
-        {/* photo wrapper */}
-        <div className="relative mb-6">
-          {/* glow */}
-          <div className="absolute inset-0 bg-yellow-500/20 blur-3xl scale-150 rounded-full opacity-40" />
+      {/* Card */}
+      <div
+        className="relative rounded-3xl overflow-hidden"
+        style={{
+          background:
+            "linear-gradient(135deg, rgba(234,179,8,0.06) 0%, rgba(255,255,255,0.02) 100%)",
+          border: "1px solid rgba(234,179,8,0.15)",
+        }}
+      >
+        {/* glowing bg */}
+        <div className="absolute inset-0 opacity-30">
+          <div className="absolute -top-20 -right-20 w-40 h-40 rounded-full bg-yellow-500/10 blur-3xl" />
+        </div>
 
-          {/* outer ring */}
-          <div className="relative p-2 rounded-full border border-yellow-500/20 bg-white/[0.02] backdrop-blur-xl">
-            <div className="relative w-36 h-44 rounded-[2rem] overflow-hidden border border-yellow-500/20 shadow-2xl">
+        <div className="flex gap-5 p-5 relative z-10">
+          {/* Photo */}
+          <div className="relative flex-shrink-0">
+            <div
+              className="relative overflow-hidden rounded-2xl"
+              style={{ width: 90, height: 110 }}
+            >
               <Image
                 src={teacher.photo}
                 alt={teacher.name}
                 fill
                 className="object-cover"
+                sizes="90px"
               />
 
               {/* overlay */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
+
+              {/* frame */}
+              <div className="absolute inset-0 rounded-2xl ring-1 ring-yellow-400/20" />
+            </div>
+
+            {/* Crown badge */}
+            <div
+              className="absolute -top-2 -right-2 w-6 h-6 rounded-full flex items-center justify-center"
+              style={{
+                background: "rgba(0,0,0,0.9)",
+                border: "1px solid rgba(234,179,8,0.4)",
+              }}
+            >
+              <span className="text-[10px]">👑</span>
             </div>
           </div>
 
-          {/* crown */}
-          <div className="absolute -top-3 left-1/2 -translate-x-1/2 w-8 h-8 rounded-full bg-black border border-yellow-500/30 flex items-center justify-center shadow-lg">
-            <span className="text-sm">👑</span>
-          </div>
+          {/* Info */}
+          <div className="flex-1 min-w-0">
+            <div className="mb-1">
+              <span className="text-[7px] tracking-[0.35em] uppercase font-black text-yellow-500/60">
+                Pembimbing Terbaik
+              </span>
+            </div>
 
-          {/* floating dots */}
-          <span className="absolute top-10 -left-4 w-2 h-2 rounded-full bg-yellow-500/40 animate-pulse" />
-          <span className="absolute bottom-8 -right-4 w-1.5 h-1.5 rounded-full bg-white/30 animate-pulse" />
+            <h3 className="font-serif italic text-white text-[18px] leading-tight mb-1">
+              {teacher.name}
+            </h3>
+
+            {teacher.subject && (
+              <p className="text-[9px] tracking-widest uppercase text-zinc-500 font-bold mb-3">
+                {teacher.subject}
+              </p>
+            )}
+
+            <div className="w-8 h-px bg-yellow-500/30 mb-3" />
+
+            {teacher.message && (
+              <div className="relative">
+                <Quote size={10} className="text-yellow-500/30 mb-1" />
+                <p className="text-zinc-400 text-[10px] italic leading-relaxed">
+                  {teacher.message}
+                </p>
+              </div>
+            )}
+          </div>
         </div>
 
-        {/* name */}
-        <div className="mb-3">
-          <p className="text-[8px] tracking-[0.35em] uppercase text-yellow-500/60 font-black mb-2">
-            Pembimbing Terbaik
-          </p>
-
-          <h3 className="text-white font-serif italic text-[28px] leading-none">
-            {teacher.name}
-          </h3>
-
-          {teacher.subject && (
-            <p className="mt-3 text-[10px] uppercase tracking-[0.3em] text-zinc-500 font-bold">
-              {teacher.subject}
-            </p>
-          )}
-        </div>
-
-        {/* divider */}
-        <div className="w-20 h-px bg-gradient-to-r from-transparent via-yellow-500/40 to-transparent mb-5" />
-
-        {/* message */}
-        {teacher.message && (
-          <div
-            className="relative max-w-md rounded-3xl px-5 py-5 overflow-hidden"
-            style={{
-              background: "rgba(255,255,255,0.03)",
-              border: "1px solid rgba(255,255,255,0.06)",
-            }}
-          >
-            {/* quote glow */}
-            <div className="absolute top-0 right-0 w-20 h-20 bg-yellow-500/10 blur-2xl" />
-
-            <Quote
-              size={16}
-              className="text-yellow-500/30 mx-auto mb-3"
-            />
-
-            <p className="text-zinc-400 italic text-[11px] leading-relaxed relative z-10">
-              {teacher.message}
-            </p>
-          </div>
-        )}
-
-        {/* bottom metadata */}
-        <div className="mt-6 flex items-center gap-3">
-          <div className="h-px w-10 bg-white/10" />
-
-          <span className="text-[8px] tracking-[0.35em] uppercase text-zinc-700 font-black">
+        {/* Bottom strip */}
+        <div
+          className="px-5 py-2.5 flex items-center justify-between"
+          style={{
+            borderTop: "1px solid rgba(234,179,8,0.08)",
+            background: "rgba(0,0,0,0.3)",
+          }}
+        >
+          <span className="text-[7px] tracking-[0.35em] uppercase text-zinc-700 font-black">
             XII TKJ 2 · 2023–2026
           </span>
 
-          <div className="h-px w-10 bg-white/10" />
+          <div className="flex gap-1">
+            {[...Array(3)].map((_, i) => (
+              <span
+                key={i}
+                className="w-1 h-1 rounded-full bg-yellow-500/30"
+              />
+            ))}
+          </div>
         </div>
       </div>
     </motion.div>

@@ -1,13 +1,8 @@
 "use client";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
-import { useState } from "react";
-import {
-  Heart,
-  GraduationCap,
-  Quote,
-  ChevronDown,
-} from "lucide-react";
+import { useRef, useState } from "react";
+import { Heart, GraduationCap, Quote, ChevronDown } from "lucide-react";
 
 interface SquadProps {
   students: any[];
@@ -19,123 +14,104 @@ interface SquadProps {
   };
 }
 
-function TeacherCard({
-  teacher,
-}: {
-  teacher: NonNullable<SquadProps["teacher"]>;
-}) {
+// ─── Teacher Card ─────────────────────────────────────────────────────────────
+function TeacherCard({ teacher }: { teacher: NonNullable<SquadProps["teacher"]> }) {
   return (
     <motion.div
       initial={{ opacity: 0, y: 32 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 1 }}
-      className="relative mb-24"
+      viewport={{ once: true, margin: "-60px" }}
+      transition={{ duration: 0.9, ease: [0.25, 0.1, 0.25, 1] }}
+      className="relative mb-16"
     >
-      {/* vertical connector */}
-      <div className="absolute left-1/2 top-full -translate-x-1/2 w-px h-20 bg-gradient-to-b from-yellow-500/40 to-transparent" />
-
-      {/* orbit glow */}
-      <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-        <div className="w-[260px] h-[260px] rounded-full border border-yellow-500/10" />
-        <div className="absolute w-[320px] h-[320px] rounded-full border border-white/[0.03]" />
-      </div>
-
-      {/* top label */}
-      <div className="flex justify-center mb-6">
-        <div className="px-4 py-1.5 rounded-full border border-yellow-500/20 bg-yellow-500/5 flex items-center gap-2">
-          <GraduationCap size={11} className="text-yellow-500" />
-
-          <span className="text-[8px] uppercase tracking-[0.35em] font-black text-yellow-500/80">
+      {/* Section label */}
+      <div className="flex items-center gap-3 mb-6 justify-center">
+        <div className="h-px flex-1 bg-gradient-to-r from-transparent to-yellow-500/20" />
+        <div className="flex items-center gap-2 px-3 py-1 bg-yellow-500/8 border border-yellow-500/15 rounded-full">
+          <GraduationCap size={10} className="text-yellow-500" />
+          <span className="text-[8px] tracking-[0.35em] uppercase font-black text-yellow-500/80">
             Wali Kelas
           </span>
         </div>
+        <div className="h-px flex-1 bg-gradient-to-l from-transparent to-yellow-500/20" />
       </div>
 
-      {/* main */}
-      <div className="relative flex flex-col items-center text-center">
-        {/* photo wrapper */}
-        <div className="relative mb-6">
-          {/* glow */}
-          <div className="absolute inset-0 bg-yellow-500/20 blur-3xl scale-150 rounded-full opacity-40" />
-
-          {/* outer ring */}
-          <div className="relative p-2 rounded-full border border-yellow-500/20 bg-white/[0.02] backdrop-blur-xl">
-            <div className="relative w-36 h-44 rounded-[2rem] overflow-hidden border border-yellow-500/20 shadow-2xl">
+      {/* Card */}
+      <div
+        className="relative rounded-3xl overflow-hidden"
+        style={{
+          background: "linear-gradient(135deg, rgba(234,179,8,0.06) 0%, rgba(255,255,255,0.02) 100%)",
+          border: "1px solid rgba(234,179,8,0.15)",
+        }}
+      >
+        <div className="flex gap-5 p-5">
+          {/* Photo */}
+          <div className="relative flex-shrink-0">
+            <div
+              className="relative overflow-hidden rounded-2xl"
+              style={{ width: 90, height: 110 }}
+            >
               <Image
                 src={teacher.photo}
                 alt={teacher.name}
                 fill
                 className="object-cover"
+                sizes="90px"
               />
-
-              {/* overlay */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+              {/* Golden overlay frame */}
+              <div className="absolute inset-0 rounded-2xl ring-1 ring-yellow-400/20" />
+            </div>
+            {/* Crown badge */}
+            <div
+              className="absolute -top-2 -right-2 w-6 h-6 rounded-full flex items-center justify-center"
+              style={{ background: "rgba(0,0,0,0.9)", border: "1px solid rgba(234,179,8,0.4)" }}
+            >
+              <span className="text-[10px]">👑</span>
             </div>
           </div>
 
-          {/* crown */}
-          <div className="absolute -top-3 left-1/2 -translate-x-1/2 w-8 h-8 rounded-full bg-black border border-yellow-500/30 flex items-center justify-center shadow-lg">
-            <span className="text-sm">👑</span>
+          {/* Info */}
+          <div className="flex-1 min-w-0">
+            <div className="mb-1">
+              <span className="text-[7px] tracking-[0.35em] uppercase font-black text-yellow-500/60">
+                Pembimbing Terbaik
+              </span>
+            </div>
+            <h3 className="font-serif italic text-white text-[18px] leading-tight mb-1">
+              {teacher.name}
+            </h3>
+            {teacher.subject && (
+              <p className="text-[9px] tracking-widest uppercase text-zinc-500 font-bold mb-3">
+                {teacher.subject}
+              </p>
+            )}
+            {/* Divider */}
+            <div className="w-8 h-px bg-yellow-500/30 mb-3" />
+            {/* Message */}
+            {teacher.message && (
+              <div className="relative">
+                <Quote size={10} className="text-yellow-500/30 mb-1" />
+                <p className="text-zinc-400 text-[10px] italic leading-relaxed">
+                  {teacher.message}
+                </p>
+              </div>
+            )}
           </div>
-
-          {/* floating dots */}
-          <span className="absolute top-10 -left-4 w-2 h-2 rounded-full bg-yellow-500/40 animate-pulse" />
-          <span className="absolute bottom-8 -right-4 w-1.5 h-1.5 rounded-full bg-white/30 animate-pulse" />
         </div>
 
-        {/* name */}
-        <div className="mb-3">
-          <p className="text-[8px] tracking-[0.35em] uppercase text-yellow-500/60 font-black mb-2">
-            Pembimbing Terbaik
-          </p>
-
-          <h3 className="text-white font-serif italic text-[28px] leading-none">
-            {teacher.name}
-          </h3>
-
-          {teacher.subject && (
-            <p className="mt-3 text-[10px] uppercase tracking-[0.3em] text-zinc-500 font-bold">
-              {teacher.subject}
-            </p>
-          )}
-        </div>
-
-        {/* divider */}
-        <div className="w-20 h-px bg-gradient-to-r from-transparent via-yellow-500/40 to-transparent mb-5" />
-
-        {/* message */}
-        {teacher.message && (
-          <div
-            className="relative max-w-md rounded-3xl px-5 py-5 overflow-hidden"
-            style={{
-              background: "rgba(255,255,255,0.03)",
-              border: "1px solid rgba(255,255,255,0.06)",
-            }}
-          >
-            {/* quote glow */}
-            <div className="absolute top-0 right-0 w-20 h-20 bg-yellow-500/10 blur-2xl" />
-
-            <Quote
-              size={16}
-              className="text-yellow-500/30 mx-auto mb-3"
-            />
-
-            <p className="text-zinc-400 italic text-[11px] leading-relaxed relative z-10">
-              {teacher.message}
-            </p>
-          </div>
-        )}
-
-        {/* bottom metadata */}
-        <div className="mt-6 flex items-center gap-3">
-          <div className="h-px w-10 bg-white/10" />
-
-          <span className="text-[8px] tracking-[0.35em] uppercase text-zinc-700 font-black">
+        {/* Bottom strip */}
+        <div
+          className="px-5 py-2.5 flex items-center justify-between"
+          style={{ borderTop: "1px solid rgba(234,179,8,0.08)", background: "rgba(0,0,0,0.3)" }}
+        >
+          <span className="text-[7px] tracking-[0.35em] uppercase text-zinc-700 font-black">
             XII TKJ 2 · 2023–2026
           </span>
-
-          <div className="h-px w-10 bg-white/10" />
+          <div className="flex gap-1">
+            {[...Array(3)].map((_, i) => (
+              <span key={i} className="w-1 h-1 rounded-full bg-yellow-500/30" />
+            ))}
+          </div>
         </div>
       </div>
     </motion.div>
@@ -152,35 +128,16 @@ function StudentCard({ student, i }: { student: any; i: number }) {
       initial={{ opacity: 0, y: 40 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-50px" }}
-      transition={{
-        duration: 0.7,
-        delay: (i % 4) * 0.07,
-        ease: [0.25, 0.1, 0.25, 1],
-      }}
+      transition={{ duration: 0.7, delay: (i % 4) * 0.07, ease: [0.25, 0.1, 0.25, 1] }}
       className="relative group"
     >
-      {/* connector line */}
-      <div className="absolute -top-8 left-1/2 -translate-x-1/2 w-px h-8 bg-gradient-to-b from-transparent to-white/10" />
-
-      {/* side connector */}
-      {i % 2 === 0 && (
-        <div className="absolute top-10 right-[-12px] w-6 h-px bg-white/10" />
-      )}
-
-      {i % 2 === 1 && (
-        <div className="absolute top-10 left-[-12px] w-6 h-px bg-white/10" />
-      )}
-
       <div
-        className="relative rounded-2xl overflow-hidden shadow-2xl flex flex-col backdrop-blur-xl"
+        className="relative rounded-2xl overflow-hidden shadow-2xl flex flex-col"
         style={{
           background: "rgba(24,24,27,0.9)",
           border: "1px solid rgba(255,255,255,0.06)",
         }}
       >
-        {/* top glow */}
-        <div className="absolute inset-x-0 top-0 h-20 bg-gradient-to-b from-yellow-500/5 to-transparent pointer-events-none z-10" />
-
         {/* Photo */}
         <div className="relative aspect-[3/4] w-full overflow-hidden bg-zinc-800">
           <Image
@@ -191,8 +148,11 @@ function StudentCard({ student, i }: { student: any; i: number }) {
             sizes="(max-width: 640px) 50vw, 33vw"
           />
 
-          {/* overlay */}
-          <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent z-10" />
+          {/* Scrim */}
+          <div
+            className="absolute inset-x-0 bottom-0 h-2/3 pointer-events-none z-10"
+            style={{ background: "linear-gradient(to top, rgba(0,0,0,0.98) 0%, transparent 100%)" }}
+          />
 
           {/* Hover ring */}
           <div className="absolute inset-0 ring-0 group-hover:ring-1 ring-yellow-400/25 transition-all duration-500 z-20 pointer-events-none rounded-t-2xl" />
@@ -204,11 +164,6 @@ function StudentCard({ student, i }: { student: any; i: number }) {
             </span>
           </div>
 
-          {/* floating dot */}
-          <div className="absolute top-3 right-3 z-20">
-            <span className="block w-1.5 h-1.5 rounded-full bg-yellow-500/50 animate-pulse" />
-          </div>
-
           {/* Name overlay */}
           <div className="absolute inset-x-0 bottom-0 z-20 px-3 pb-3">
             <h3 className="font-serif italic text-white text-[13px] leading-tight drop-shadow-lg">
@@ -217,20 +172,19 @@ function StudentCard({ student, i }: { student: any; i: number }) {
           </div>
         </div>
 
-        {/* Message */}
-        <div className="px-3 pt-3 pb-1 flex-1 flex flex-col relative z-10">
+        {/* Message area — ALWAYS visible, expandable if long */}
+        <div className="px-3 pt-3 pb-1 flex-1 flex flex-col">
           <div className="relative mb-1">
             <Quote size={8} className="text-yellow-500/25 mb-1" />
-
             <p
               className={`text-zinc-400 text-[9px] italic leading-relaxed transition-all duration-300 ${
                 !expanded && hasLongMessage ? "line-clamp-3" : ""
               }`}
             >
-              {student.message ||
-                "Tiga tahun yang tak terlupakan. Sampai jumpa di masa depan!"}
+              {student.message || "Tiga tahun yang tak terlupakan. Sampai jumpa di masa depan!"}
             </p>
 
+            {/* Expand toggle */}
             {hasLongMessage && (
               <button
                 onClick={() => setExpanded((v) => !v)}
@@ -239,7 +193,6 @@ function StudentCard({ student, i }: { student: any; i: number }) {
                 <span className="text-[7px] tracking-widest uppercase font-black">
                   {expanded ? "Tutup" : "Selengkapnya"}
                 </span>
-
                 <motion.div
                   animate={{ rotate: expanded ? 180 : 0 }}
                   transition={{ duration: 0.3 }}
@@ -254,14 +207,11 @@ function StudentCard({ student, i }: { student: any; i: number }) {
         {/* Bottom strip */}
         <div
           className="px-3 py-2 flex items-center justify-between mt-auto"
-          style={{
-            borderTop: "1px solid rgba(255,255,255,0.04)",
-          }}
+          style={{ borderTop: "1px solid rgba(255,255,255,0.04)" }}
         >
           <span className="text-[7px] tracking-[0.2em] uppercase text-zinc-700 font-bold">
             Alumni 2026
           </span>
-
           <span className="w-1.5 h-1.5 rounded-full bg-yellow-500/40" />
         </div>
       </div>
@@ -270,10 +220,8 @@ function StudentCard({ student, i }: { student: any; i: number }) {
 }
 
 // ─── Main Section ─────────────────────────────────────────────────────────────
-export default function SquadSection({
-  students,
-  teacher,
-}: SquadProps) {
+export default function SquadSection({ students, teacher }: SquadProps) {
+  // Default teacher data — ganti sesuai data asli
   const walikelas = teacher ?? {
     name: "Nama Wali Kelas",
     photo: "/images/walikelas.jpg",
@@ -284,9 +232,6 @@ export default function SquadSection({
 
   return (
     <section className="relative bg-black pt-20 pb-32 overflow-hidden">
-      {/* bg radial */}
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(234,179,8,0.08),transparent_40%)]" />
-
       {/* Top rule */}
       <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
 
@@ -300,7 +245,8 @@ export default function SquadSection({
       />
 
       <div className="relative z-10 px-4 max-w-lg mx-auto md:max-w-3xl">
-        {/* Header */}
+
+        {/* ── Header ── */}
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -310,10 +256,7 @@ export default function SquadSection({
         >
           <div className="inline-flex items-center gap-2 text-yellow-500 mb-5 px-3 py-1.5 bg-yellow-500/5 border border-yellow-500/15 rounded-full">
             <Heart size={10} fill="currentColor" />
-
-            <span className="text-[8px] tracking-[0.35em] uppercase font-black">
-              Unforgettable Souls
-            </span>
+            <span className="text-[8px] tracking-[0.35em] uppercase font-black">Unforgettable Souls</span>
           </div>
 
           <h2 className="font-serif italic text-white leading-none text-[clamp(3.5rem,18vw,7rem)] tracking-tight">
@@ -325,34 +268,28 @@ export default function SquadSection({
           </p>
         </motion.div>
 
-        {/* teacher */}
+        {/* ── Wali Kelas ── */}
         <TeacherCard teacher={walikelas} />
 
-        {/* divider */}
+        {/* ── Students divider ── */}
         <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="flex items-center gap-3 mb-14"
+          className="flex items-center gap-3 mb-8"
         >
           <div className="h-px flex-1 bg-white/5" />
-
           <span className="text-[7px] tracking-[0.4em] uppercase text-zinc-700 font-black">
             {students.length} Siswa
           </span>
-
           <div className="h-px flex-1 bg-white/5" />
         </motion.div>
 
-        {/* center timeline */}
-        <div className="absolute left-1/2 top-[520px] bottom-24 -translate-x-1/2 w-px bg-gradient-to-b from-white/10 via-yellow-500/10 to-transparent pointer-events-none" />
-
-        {/* grid */}
-        <div className="grid grid-cols-2 gap-x-4 gap-y-10 relative">
+        {/* ── Masonry grid ── */}
+        <div className="grid grid-cols-2 gap-3">
           {students.map((student, i) => {
             const isTall = i % 4 === 1 || i % 4 === 2;
-
             return (
               <div key={student.id} className={isTall ? "mt-8" : ""}>
                 <StudentCard student={student} i={i} />
@@ -361,16 +298,15 @@ export default function SquadSection({
           })}
         </div>
 
-        {/* Footer */}
+        {/* ── Footer ── */}
         <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ delay: 0.4, duration: 1 }}
-          className="mt-20 text-center"
+          className="mt-16 text-center"
         >
           <div className="w-px h-12 bg-gradient-to-b from-yellow-500/40 to-transparent mx-auto mb-6" />
-
           <p className="text-zinc-600 text-[10px] tracking-[0.3em] uppercase font-bold">
             XII TKJ 2 · 2023–2026
           </p>

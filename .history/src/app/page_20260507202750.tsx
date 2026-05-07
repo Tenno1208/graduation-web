@@ -93,43 +93,45 @@ export default function GraduationPage() {
           <FutureLetter />
           <ClosingSection />
           {/* Ganti bagian tombol lama dengan ini */}
-          {/* SECRET EASTER EGG */}
-<div className="relative bg-black py-24 flex justify-center overflow-hidden">
+          {/* Secret Vault Trigger */}
+<div className="relative bg-black py-20 flex justify-center overflow-hidden">
   
-  {/* hidden trigger */}
+  {/* glow */}
+  <div className="absolute w-60 h-60 bg-yellow-500/10 blur-[100px] rounded-full" />
+
   <motion.button
-    initial={{ opacity: 0.03 }}
-    whileHover={{ opacity: 0.15 }}
-    transition={{ duration: 0.4 }}
+    whileHover={{ scale: 1.04 }}
+    whileTap={{ scale: 0.97 }}
     onClick={() => setIsVaultOpen(true)}
-    className="
-      group relative
-      text-zinc-800 hover:text-yellow-500/40
-      transition-all duration-700
-      select-none
-    "
+    className="group relative z-10"
   >
-    {/* tiny line */}
-    <div className="flex items-center gap-3">
-      <div className="w-6 h-px bg-zinc-900 group-hover:bg-yellow-500/20 transition-all duration-500" />
+    {/* outer ring */}
+    <div className="absolute inset-0 rounded-full border border-yellow-500/20 animate-pulse" />
 
-      <span className="text-[6px] tracking-[0.5em] uppercase font-black">
-        archive
-      </span>
+    <div className="relative px-10 py-6 rounded-full border border-white/10 bg-white/[0.03] backdrop-blur-2xl overflow-hidden">
+      
+      {/* shine */}
+      <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full" />
 
-      <div className="w-6 h-px bg-zinc-900 group-hover:bg-yellow-500/20 transition-all duration-500" />
+      <div className="relative flex flex-col items-center gap-3">
+        {/* dot */}
+        <div className="relative">
+          <span className="absolute inset-0 rounded-full bg-yellow-500 blur-md opacity-60 animate-pulse" />
+
+          <div className="relative w-3 h-3 rounded-full bg-yellow-400" />
+        </div>
+
+        <div className="text-center">
+          <p className="text-[8px] tracking-[0.45em] uppercase text-zinc-500 group-hover:text-yellow-500 transition-colors duration-500 font-black">
+            Secret Archive
+          </p>
+
+          <p className="mt-2 text-[10px] italic text-zinc-700 group-hover:text-zinc-500 transition-colors">
+            Jangan dibuka kalau mental lemah.
+          </p>
+        </div>
+      </div>
     </div>
-
-    {/* floating tooltip */}
-    <motion.div
-      initial={{ opacity: 0, y: 6 }}
-      whileHover={{ opacity: 1, y: 0 }}
-      className="absolute top-full left-1/2 -translate-x-1/2 mt-3 whitespace-nowrap"
-    >
-      <p className="text-[8px] italic text-zinc-700">
-        beberapa kenangan memang disembunyikan.
-      </p>
-    </motion.div>
   </motion.button>
 </div>
           <Footer />

@@ -22,7 +22,7 @@ const SECRET_PASSWORD = "tkj2kita";
 const TOTAL_AIB_PHOTOS = 20;
 
 const ERROR_MESSAGES = [
-  "Kode salah. Lu penyusup kelas sebelah ya?",
+  "Kode salah. Lu penyusup Kelas sebelah ya?",
   "Salah cuy. Anak TKJ mah hafal beginian.",
   "Akses ditolak. Aura non-TKJ terdeteksi.",
   "Kata sandi ngawur. Fokus woi.",

@@ -93,45 +93,17 @@ export default function GraduationPage() {
           <FutureLetter />
           <ClosingSection />
           {/* Ganti bagian tombol lama dengan ini */}
-          {/* SECRET EASTER EGG */}
-<div className="relative bg-black py-24 flex justify-center overflow-hidden">
-  
-  {/* hidden trigger */}
-  <motion.button
-    initial={{ opacity: 0.03 }}
-    whileHover={{ opacity: 0.15 }}
-    transition={{ duration: 0.4 }}
-    onClick={() => setIsVaultOpen(true)}
-    className="
-      group relative
-      text-zinc-800 hover:text-yellow-500/40
-      transition-all duration-700
-      select-none
-    "
-  >
-    {/* tiny line */}
-    <div className="flex items-center gap-3">
-      <div className="w-6 h-px bg-zinc-900 group-hover:bg-yellow-500/20 transition-all duration-500" />
-
-      <span className="text-[6px] tracking-[0.5em] uppercase font-black">
-        archive
-      </span>
-
-      <div className="w-6 h-px bg-zinc-900 group-hover:bg-yellow-500/20 transition-all duration-500" />
-    </div>
-
-    {/* floating tooltip */}
-    <motion.div
-      initial={{ opacity: 0, y: 6 }}
-      whileHover={{ opacity: 1, y: 0 }}
-      className="absolute top-full left-1/2 -translate-x-1/2 mt-3 whitespace-nowrap"
-    >
-      <p className="text-[8px] italic text-zinc-700">
-        beberapa kenangan memang disembunyikan.
-      </p>
-    </motion.div>
-  </motion.button>
-</div>
+          <div className="bg-black py-10 flex justify-center">
+            <button 
+              onClick={() => setIsVaultOpen(true)}
+              className="group flex flex-col items-center gap-2"
+            >
+              <span className="text-[7px] tracking-[0.5em] text-zinc-800 group-hover:text-yellow-500/40 uppercase transition-all">
+                ✦ Area Terlarang
+              </span>
+              <div className="w-1 h-1 rounded-full bg-zinc-900 group-hover:bg-yellow-500/20 transition-all" />
+            </button>
+          </div>
           <Footer />
           <SecretVault 
             isOpen={isVaultOpen} 
