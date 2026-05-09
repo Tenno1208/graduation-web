@@ -32,7 +32,21 @@ export default function GraduationPage() {
   const [isPlaying, setIsPlaying] = useState(false);
   const [hasStarted, setHasStarted] = useState(false);
   const [isVaultOpen, setIsVaultOpen] = useState(false);
+  
+  // --- TAMBAHKAN STATE INI ---
+  const [currentTrack, setCurrentTrack] = useState(0); 
+  
   const audioRef = useRef<HTMLAudioElement | null>(null);
+
+  // Efek untuk mengganti lagu secara otomatis saat currentTrack berubah
+  useEffect(() => {
+    if (hasStarted && audioRef.current) {
+      audioRef.current.load(); // Memuat ulang sumber audio baru
+      if (isPlaying) {
+        audioRef.current.play().catch((e) => console.log("Audio play blocked"));
+      }
+    }
+  }, [currentTrack, hasStarted]);
 
   useEffect(() => {
     if (hasStarted) {
@@ -71,7 +85,12 @@ export default function GraduationPage() {
 
   return (
     <main className="bg-black text-white scroll-smooth selection:bg-yellow-500 selection:text-black">
-      <audio ref={audioRef} src="/audio/memories.mp3" loop />
+      {/* UPDATE SRC AUDIO DISINI */}
+      <audio 
+        ref={audioRef} 
+        src={currentTrack === 0 ? "/audio/memories.mp3" : "/audio/masasma.mp3"} 
+        loop 
+      />
 
       <AnimatePresence mode="wait">
         {!hasStarted && <LandingGate key="gate" onEnter={startExperience} />}
@@ -79,9 +98,13 @@ export default function GraduationPage() {
 
       {hasStarted && (
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1.5 }}>
-          <MusicPlayer isPlaying={isPlaying} toggleMusic={toggleMusic} />
+          <MusicPlayer 
+            isPlaying={isPlaying} 
+            toggleMusic={toggleMusic} 
+            currentTrack={currentTrack}
+            setCurrentTrack={setCurrentTrack}
+          />
 
-          {/* ↓ audioRef dikirim ke HeroSection biar bisa pause/resume saat video */}
           <HeroSection
             index={index}
             quote={graduationQuotes[index % graduationQuotes.length]}
@@ -92,6 +115,7 @@ export default function GraduationPage() {
           <SquadSection students={students} teacher={waliKelas} />
           <FutureLetter />
           <ClosingSection />
+
           <div className="relative bg-black py-20 flex justify-center">
             <motion.button
               initial={{ opacity: 0.4 }}
@@ -99,7 +123,6 @@ export default function GraduationPage() {
               onClick={() => setIsVaultOpen(true)}
               className="group relative flex flex-col items-center gap-3 transition-all duration-500"
             >
-              {/* Ikon Gembok Kecil */}
               <div className="p-3 rounded-2xl bg-white/5 border border-white/10 group-hover:border-yellow-500/50 group-hover:bg-yellow-500/5 transition-all duration-500">
                 <svg 
                   width="18" height="18" viewBox="0 0 24 24" fill="none" 
@@ -111,7 +134,6 @@ export default function GraduationPage() {
                 </svg>
               </div>
 
-              {/* Teks Label */}
               <div className="flex items-center gap-4">
                 <div className="w-8 h-px bg-zinc-800 group-hover:bg-yellow-500/30 transition-all" />
                 <span className="text-[9px] tracking-[0.4em] uppercase font-black text-zinc-500 group-hover:text-yellow-500 transition-colors">
@@ -120,12 +142,12 @@ export default function GraduationPage() {
                 <div className="w-8 h-px bg-zinc-800 group-hover:bg-yellow-500/30 transition-all" />
               </div>
 
-              {/* Tooltip Keterangan */}
               <p className="text-[8px] italic text-zinc-600 opacity-0 group-hover:opacity-100 transition-opacity duration-500 tracking-wider">
                 Khusus warga XII TKJ 2
               </p>
             </motion.button>
           </div>
+          
           <Footer />
           <SecretVault 
             isOpen={isVaultOpen} 

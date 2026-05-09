@@ -1,15 +1,38 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Volume2, VolumeX, Disc, Music2, ChevronRight } from "lucide-react";
+import { Volume2, VolumeX, Disc, Music2, ChevronRight, SkipForward } from "lucide-react";
+
+// ─── Daftar Lagu ──────────────────────────────────────────────────────────────
+const PLAYLIST = [
+  {
+    title: "Sampai Jumpa",
+    artist: "Endang Soekamti",
+    src: "/audio/memories.mp3"
+  },
+  {
+    title: "Masa Sma",
+    artist: "Angel 9 Band",
+    src: "/audio/masasma.mp3"
+  }
+];
 
 interface MusicPlayerProps {
   isPlaying: boolean;
   toggleMusic: () => void;
+  // Tambahkan props di bawah ini di page.tsx kamu nanti
+  currentTrack: number;
+  setCurrentTrack: (index: number) => void;
 }
 
-export default function MusicPlayer({ isPlaying, toggleMusic }: MusicPlayerProps) {
+export default function MusicPlayer({ isPlaying, toggleMusic, currentTrack, setCurrentTrack }: MusicPlayerProps) {
   const [isMinimized, setIsMinimized] = useState(false);
+
+  const handleNextTrack = (e: React.MouseEvent) => {
+    e.stopPropagation(); // Agar tidak mentrigger toggle minimized
+    const nextIndex = (currentTrack + 1) % PLAYLIST.length;
+    setCurrentTrack(nextIndex);
+  };
 
   return (
     <motion.div 
@@ -17,10 +40,10 @@ export default function MusicPlayer({ isPlaying, toggleMusic }: MusicPlayerProps
       animate={{ 
         opacity: 1, 
         x: 0,
-        width: isMinimized ? "64px" : "280px" 
+        width: isMinimized ? "64px" : "300px" 
       }}
       transition={{ type: "spring", stiffness: 300, damping: 30 }}
-      className="fixed bottom-8 right-6 z-[60] flex items-center bg-zinc-900/60 backdrop-blur-xl rounded-2xl border border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.5)] overflow-hidden h-[64px]"
+      className="fixed bottom-8 right-6 z-[60] flex items-center bg-zinc-900/70 backdrop-blur-xl rounded-2xl border border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.5)] overflow-hidden h-[64px]"
     >
       <div className="flex items-center w-full px-2 gap-3">
         
@@ -56,34 +79,55 @@ export default function MusicPlayer({ isPlaying, toggleMusic }: MusicPlayerProps
           </AnimatePresence>
         </div>
 
-        {/* Konten yang bisa disembunyikan */}
-        <AnimatePresence>
+        {/* Konten */}
+        <AnimatePresence mode="wait">
           {!isMinimized && (
             <motion.div 
-              initial={{ opacity: 0, width: 0 }} // Perbaikan: Ganti 'w' menjadi 'width'
-              animate={{ opacity: 1, width: "auto" }} // Perbaikan: Ganti 'w' menjadi 'width'
-              exit={{ opacity: 0, width: 0 }} // Perbaikan: Ganti 'w' menjadi 'width'
+              key="expanded-content"
+              initial={{ opacity: 0, width: 0 }}
+              animate={{ opacity: 1, width: "auto" }}
+              exit={{ opacity: 0, width: 0 }}
               className="flex items-center flex-1 min-w-0 gap-3"
             >
               <div className="flex flex-col min-w-0 flex-1">
                 <div className="flex items-center gap-2 mb-0.5">
                   <span className="text-[7px] text-yellow-500/80 font-black uppercase tracking-[0.3em]">Now Playing</span>
+                  <motion.div 
+                    animate={{ scale: [1, 1.2, 1] }} 
+                    transition={{ repeat: Infinity, duration: 2 }}
+                    className="w-1 h-1 rounded-full bg-yellow-500" 
+                  />
                 </div>
+                
                 <div className="overflow-hidden whitespace-nowrap">
-                  <motion.p 
-                    animate={isPlaying ? { x: [0, -150] } : { x: 0 }}
-                    transition={{ repeat: Infinity, duration: 10, ease: "linear" }}
-                    className="text-[9px] text-white/90 font-medium tracking-wide pr-12"
-                  >
-                    Sampai Jumpa - Endang Soekamti • Tribute XII TKJ 2 •
-                  </motion.p>
+                  <AnimatePresence mode="wait">
+                    <motion.p 
+                      key={currentTrack}
+                      initial={{ y: 10, opacity: 0 }}
+                      animate={{ y: 0, opacity: 1 }}
+                      exit={{ y: -10, opacity: 0 }}
+                      className="text-[9px] text-white/90 font-medium tracking-wide pr-4"
+                    >
+                      {PLAYLIST[currentTrack].title} - {PLAYLIST[currentTrack].artist}
+                    </motion.p>
+                  </AnimatePresence>
                 </div>
               </div>
 
-              <div className="flex items-center gap-1">
+              <div className="flex items-center gap-1 pr-1">
+                {/* Tombol Ganti Lagu */}
+                <button 
+                  onClick={handleNextTrack}
+                  className="p-1.5 text-zinc-400 hover:text-yellow-500 transition-colors"
+                  title="Ganti Lagu"
+                >
+                  <SkipForward size={14} />
+                </button>
+
                 <button onClick={toggleMusic} className="p-1.5 text-zinc-400 hover:text-white transition-colors">
                   {isPlaying ? <Volume2 size={14} /> : <VolumeX size={14} />}
                 </button>
+                
                 <button onClick={() => setIsMinimized(true)} className="p-1.5 bg-white/5 rounded-lg text-zinc-500 hover:text-yellow-500 transition-all">
                   <ChevronRight size={14} />
                 </button>
